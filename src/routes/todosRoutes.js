@@ -10,7 +10,7 @@ router.post("/", todosControllers.createTask)
 
 router.patch("/:id", todosControllers.editTaskTitle)
 
-router.patch("/:id/isCompleted", todosControllers.editTaskComplited)
+router.patch("/:id/isCompleted", todosControllers.editTaskComplitness)
 
 router.delete("/:id", todosControllers.deleteTask)
 
