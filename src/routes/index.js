@@ -2,11 +2,11 @@ const express = require("express")
 const router = express.Router()
 
 const todosRoutes = require("./todosRoutes")
-// const loginRoutes = require("./loginRoutes")
-// const registrationRoutes = require("./registrationRoutes")
+const userRoutes = require("./userRoutes")
+
 
 router.use("/todos", todosRoutes)
-// router.use("/login", loginRoutes)
-// router.use("/register", registrationRoutes)
+router.use("/users", userRoutes)
+
 
 module.exports = router
