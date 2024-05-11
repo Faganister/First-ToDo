@@ -1,6 +1,5 @@
 const userServices = require("../services/userServices")
 const bcrypt = require("bcrypt");
-// const User = require("./models/User"); // Модель пользователя
 const jwt = require("jsonwebtoken");
 const { validationResult } = require ('express-validator')
 class UserControllers{
@@ -20,15 +19,38 @@ class UserControllers{
             const saltRounds = 10
             const hashedPassword = await bcrypt.hash(password, saltRounds)
 
-            const newUser = new User ({ username, email, password: hashedPassword })
-            res.status(200).json({  newUser })
+            const result = await userServices.createUser({ username, email, password: hashedPassword })
+            res.status(200).json({ result })
         }catch (error){
             console.error(error)
             res.status(500).json({ message: "Ошибка при регистрации пользователя"})
         }
-        const result = await userServices.createUser(req.body)
-        res.send(`User ${JSON.stringify(req.body)} has been created`)
-        
+    }
+    async login(req,res){
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        try{
+            const { email, password} = req.body
+            const user = await userServices.findUserByEmail(email)
+            if (!user){
+                return res
+                .status(401)
+                .json({message: "Неверный логин или пароль"})
+            }
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if (!isPasswordValid) {
+              return res.status(401).json({ message: "Неверный email или пароль" });
+            }
+            console.log(user);
+            const token = jwt.sign({ userId: user._id }, process.env.Secret_key, { expiresIn: "1h" });
+            res.json({ token });
+
+        }catch (error){
+            console.error(error)
+            res.status(500).json({ message: "Ошибка при регистрации пользователя"})
+        }
     }
 }
 

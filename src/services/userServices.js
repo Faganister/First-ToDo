@@ -10,8 +10,7 @@ class UserServices{
       return await fileHelper.writeFile("users.json", result)
     }
     async findUserByEmail(email){
-      const isExist = fileHelper.findByData("users.json", email)
-      if(isExist){}
+      return await fileHelper.findByEmail("users.json", email)
     }
     
     

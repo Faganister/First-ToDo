@@ -23,7 +23,7 @@ class fileHelper{
               })
         }
     async findByEmail(fileName, userEmail){
-        return await new Promise ((res,rej) => {
+        return new Promise ((res,rej) => {
             fs.readFile(fileName, 'utf8', (err, data) => {
             if (err) {
               console.error(err);
