@@ -12,7 +12,9 @@ class UserServices{
     async findUserByEmail(email){
       return await fileHelper.findByEmail("users.json", email)
     }
-    
+    async getUsers(){ 
+      return await fileHelper.readFile("users.json")
+  }
     
 }
 
