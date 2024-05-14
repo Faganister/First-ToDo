@@ -4,7 +4,7 @@ const options = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'Твои методы API',
+      title: 'Users API',
       version: '1.0.0',
       description: 'API документация для приложения'
     },
@@ -19,7 +19,7 @@ const options = {
       }
     }
   },
-  apis: ['./routes/*.js']
+  apis: ['./src/routes/*.js']
 }
 
 const swaggerSpec = swaggerJSDoc(options)

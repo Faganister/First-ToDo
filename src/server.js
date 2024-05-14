@@ -4,7 +4,7 @@ require("dotenv").config()
 const PORT = process.env.PORT
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./swaggerSpec.js'); 
+const swaggerSpec = require('../swaggerSpec.js'); 
 
 const router = require("./routes")
 

@@ -3,10 +3,49 @@ const router = express.Router()
 
 const validation = require("../middlewares/userRoutesValidation")
 const userControllers = require("../controllers/userControllers")
-const authenticateToken = require("../middlewares/authenticateToken")
+
+
 
 router.post("/login", validation.validateHeader, validation.validateLoginBody, userControllers.login)
+
+/**
+ * @swagger
+ * /api/users/register:
+ *    post:
+ *      summary: Зарегистрировать юзера
+ *      description: Зарегистрировать пользователя с полями password, email, username
+ *      tags:
+ *        - Users
+ *      requestBody:
+ *        $ref: "#/components/requestBodies/Users"
+ *      responses:
+ *        200:
+ *          description: Таска успешно создана
+ * components:
+ *   requestBodies:
+ *     Users:
+ *       description: Модель пользователя
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: vanyafurman13@gmail.com
+ *                 description: User email
+ *               password:
+ *                 type: string
+ *                 example: createSomething123
+ *                 description: Пароль пользователя 
+ *               username:
+ *                 type: string
+ *                 example: faganister
+ *                 description: Ник пользователя
+ */
 router.post("/register", validation.validateHeader, validation.validateBody, userControllers.createUser)
-router.get("/", authenticateToken, userControllers.getUsers)
+
+
 
 module.exports = router
