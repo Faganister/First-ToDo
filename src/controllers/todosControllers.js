@@ -1,13 +1,16 @@
 const todosServices = require("../services/todosServices")
 const { validationResult } = require ('express-validator')
+const fileHelper = require("../helpers/fileHelper")
 class todosControllers{
     async getTasks(req,res){
+        const { sort } = req.query
+        console.log(req.query);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
         const tasks = await todosServices.getTasks()
-        res.send(tasks)
+        res.send(fileHelper.sortByQuery( sort, tasks ))
     }
     async createTask(req,res){   
         const errors = validationResult(req);

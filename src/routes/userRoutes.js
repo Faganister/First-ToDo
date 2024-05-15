@@ -5,7 +5,38 @@ const validation = require("../middlewares/userRoutesValidation")
 const userControllers = require("../controllers/userControllers")
 
 
-
+/**
+ * @swagger
+ * /api/users/login:
+ *    post:
+ *      summary: Авторизовать пользователя
+ *      description: Авторизация пользователя по email и паролю
+ *      tags:
+ *        - Users
+ *      requestBody:
+ *        $ref: "#/components/requestBodies/Users"
+ *      responses:
+ *        200:
+ *          description: Bearer token
+ * components:
+ *   requestBodies:
+ *     Users:
+ *       description: Модель пользователя
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: vanyafurman13@gmail.com
+ *                 description: User email
+ *               password:
+ *                 type: string
+ *                 example: createSomething123
+ *                 description: Пароль пользователя 
+ */
 router.post("/login", validation.validateHeader, validation.validateLoginBody, userControllers.login)
 
 /**

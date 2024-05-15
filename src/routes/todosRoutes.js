@@ -37,7 +37,7 @@ const authenticateToken = require("../middlewares/authenticateToken")
  *           example: false
  */
 
-router.get("/" ,authenticateToken,  validation.validateHeader, todosControllers.getTasks)
+router.get("/" , authenticateToken, todosControllers.getTasks)
 
 router.post("/",  authenticateToken,  validation.validateHeader, validation.validateBody, todosControllers.createTask)
 
