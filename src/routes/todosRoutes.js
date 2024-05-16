@@ -45,6 +45,31 @@ router.patch("/:id",authenticateToken, validation.validateBody, todosControllers
 
 router.patch("/:id/isCompleted",authenticateToken, validation.validateHeader, todosControllers.editTaskCompletness)
 
-router.delete("/:id", authenticateToken, validation.validateHeader, todosControllers.deleteTask)
+/**
+ * @swagger
+ * /api/todos/{id}:
+ *    delete:
+ *      summary: Удалить таску
+ *      description: Удаляет таску по id
+ *      tags:
+ *        - Todos
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *            type: string
+ *      responses:
+ *        200:
+ *          description: Успешное удаление таски
+ *        401:
+ *          description: Пользователь не авторизован
+ *        404:
+ *          description: Таска с указанным идентификатором не найдена.
+ *        400:
+ *          description: Bad request. Id should be string
+ */
+
+router.delete("/:id",  validation.validateParam, todosControllers.deleteTask)
 
 module.exports = router

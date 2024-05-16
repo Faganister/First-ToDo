@@ -38,6 +38,8 @@ class todosServices{
       if(taskToDeleteIndex>=0){
         todosArray.splice(taskToDeleteIndex,1)
         return await fileHelper.writeFile("todos.json", todosArray)
+      }else {
+        return false
       }
     }
     

@@ -41,7 +41,6 @@ class fileHelper{
       // console.log("Started array:", todosArray);
       if (query === 'title') {
         sortedData = todosArray.sort((a, b) => a.title.localeCompare(b.title));
-        console.log("Поали в title");
       } else if (query === 'isComplited') {
         console.log("Попали в булево");
         sortedData = todosArray.sort((a, b) => b.isActive - a.isActive);

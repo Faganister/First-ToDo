@@ -42,12 +42,15 @@ class todosControllers{
 
     }
     async deleteTask(req,res){
-        // const errors = validationResult(req);
-        // if (!errors.isEmpty()) {
-        //     return res.status(400).json({ errors: errors.array() });
-        // }
-        await todosServices.deleteTask(req.params.id)
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        if (await todosServices.deleteTask(req.params.id)){
         res.send("Task deleted successfully")
+        }else{
+            return res.status(404).json( { task: "task not founded"})
+        }
     }
 }
 

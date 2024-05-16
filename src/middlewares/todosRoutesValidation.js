@@ -11,7 +11,7 @@ class todosRoutesValidation{
     ];
   
     validateParam = [
-        param('id').isLength({min:10}).not().isEmail()
+        param('id').isLength({min:10}).isString().withMessage("Ожидается строка").not().isEmail()
     ]
     validateQuery = [
         query('url').isURL().withMessage("Ожидается url")
