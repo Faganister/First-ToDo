@@ -3,9 +3,11 @@ const { v4:uuidv4 } = require('uuid')
 
 const fileHelper = require('../helpers/fileHelper');
 class todosServices{
+
     async getTasks(){
       return await fileHelper.readFile("todos.json")
     }
+    
     async createTask(taskData, userIdentificator){
       const result = await fileHelper.readFile("todos.json")
       const idUuidv4 = uuidv4()
@@ -22,6 +24,7 @@ class todosServices{
         result.push({...task, title:newTaskData.title})
         return await fileHelper.writeFile("todos.json", result)
       }
+      return false
     }
     async updateTaskCompletness(taskId){
       const result = await fileHelper.readFile("todos.json");
@@ -31,6 +34,7 @@ class todosServices{
         result.push({...task, isCompleted:!task.isCompleted})
         return await fileHelper.writeFile("todos.json", result)
       }
+      return false
     }
     async deleteTask(taskId){
       const todosArray = await fileHelper.readFile("todos.json");

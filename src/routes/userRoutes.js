@@ -18,6 +18,8 @@ const userControllers = require("../controllers/userControllers")
  *      responses:
  *        200:
  *          description: Bearer token
+ *        400:
+ *          description: Validation issues
  * components:
  *   requestBodies:
  *     Users:
@@ -51,7 +53,9 @@ router.post("/login", validation.validateHeader, validation.validateLoginBody, u
  *        $ref: "#/components/requestBodies/Users"
  *      responses:
  *        200:
- *          description: Таска успешно создана
+ *          description: Пользователь зарегистрирован
+ *        400:
+ *          description: Validation issues
  * components:
  *   requestBodies:
  *     Users:

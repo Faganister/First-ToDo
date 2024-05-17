@@ -4,7 +4,6 @@ const fileHelper = require("../helpers/fileHelper")
 class todosControllers{
     async getTasks(req,res){
         const { sort } = req.query
-        console.log(req.query);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -27,17 +26,21 @@ class todosControllers{
             return res.status(400).json({ errors: errors.array() });
         }
         const result = await todosServices.updateTaskTitle(req.body, req.params.id)
+        if(!result){
+            return res.status(400).json({ message: "Task not founded"})
+        }
         res.send(`Task title ${JSON.stringify(req.body.title)} has been updated`)
 
     }
     async editTaskCompletness(req,res){
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(404).json({ errors: errors.array() });
         }
-        
         const result = await todosServices.updateTaskCompletness(req.params.id)
-
+        if(!result){
+            return res.status(404).json({ message: "Task not founded"})
+        }
         res.send(`Todo with title ${JSON.stringify(req.body.title)} has been updated`)
 
     }

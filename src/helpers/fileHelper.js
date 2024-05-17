@@ -37,17 +37,16 @@ class fileHelper{
     }
     sortByQuery(query, todosArray){
       let sortedData;
-      console.log(query);
-      // console.log("Started array:", todosArray);
       if (query === 'title') {
         sortedData = todosArray.sort((a, b) => a.title.localeCompare(b.title));
-      } else if (query === 'isComplited') {
+      } else if (query === 'isCompleted') {
         console.log("Попали в булево");
-        sortedData = todosArray.sort((a, b) => b.isActive - a.isActive);
+        sortedData = todosArray.sort((a, b) => {
+          return (a.isCompleted === b.isCompleted) ? 0 : a.isCompleted ? -1 : 1;
+      });
       } else {
         sortedData = todosArray;
       }
-    // console.log("Sorted array", sortedData);
      return sortedData 
     }
 }

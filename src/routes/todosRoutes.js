@@ -20,10 +20,14 @@ const authenticateToken = require("../middlewares/authenticateToken")
  *         name: sort
  *         schema:
  *           type: string
- *         description: Поле для сортировки тасок (например, "title" или "isActive").
+ *         description: Поле для сортировки тасок (например, "title" или "isCompleted").
  *     responses:
  *       200:
  *         description: Массив тасок
+ *       401:
+ *         description: Пользователь не авторизован
+ *       403:
+ *         description: Истек срок токена или неправильный токен
  * components:
  *   schemas:
  *     Todo:
@@ -39,9 +43,87 @@ const authenticateToken = require("../middlewares/authenticateToken")
 
 router.get("/" , authenticateToken, todosControllers.getTasks)
 
+/**
+ * @swagger
+ * /api/todos:
+ *    post:
+ *      summary: Создать новую таску
+ *      description: С полями title и isCompleted
+ *      tags:
+ *        - Todos
+ *      security:
+ *        - bearerAuth: []
+ *      requestBody:
+ *        $ref: "#/components/requestBodies/Todos"
+ *      responses:
+ *        200:
+ *          description: Id созданной таски
+ *        401:
+ *          description: Пользователь не авторизован
+ *        403:
+ *          description: Истек срок токена или неправильный токен
+ *        400:
+ *          description: Проблемы с валидацией
+ * components:
+ *   requestBodies:
+ *     Todos:
+ *       description: Свойства таски, которые были добавлены.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: Закрыть 3-й чек-лист
+ *                 description: Название таски
+ *               isCompleted:
+ *                 type: boolean
+ *                 example: false
+ *                 description: Завершена ли таска
+ */
 router.post("/",  authenticateToken,  validation.validateHeader, validation.validateBody, todosControllers.createTask)
-
-router.patch("/:id",authenticateToken, validation.validateBody, todosControllers.editTaskTitle)
+/**
+ * @swagger
+ * /api/todos/{id}:
+ *   patch:
+ *     summary: Изменить title таски
+ *     description: Обновляет часть данных таски по его ID.
+ *     tags:
+ *        - Todos
+ *     security:
+ *        - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Идентификатор таски.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               isCompleted:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Данные таски успешно обновлены.
+ *       404:
+ *         description: Таска не найдена
+ *       401:
+ *         description: Пользователь не авторизован
+ *       403:
+ *         description: Истек срок токена или неправильный токен
+ *       400:
+ *         description: Проблемы с валидацией
+ */
+router.patch("/:id", authenticateToken, validation.validateBody, todosControllers.editTaskTitle)
 
 router.patch("/:id/isCompleted",authenticateToken, validation.validateHeader, todosControllers.editTaskCompletness)
 
