@@ -41,7 +41,7 @@ class todosControllers{
         if(!result){
             return res.status(404).json({ message: "Task not founded"})
         }
-        res.send(`Todo with title ${JSON.stringify(req.body.title)} has been updated`)
+        res.send(`Todo status has been updated`)
 
     }
     async deleteTask(req,res){

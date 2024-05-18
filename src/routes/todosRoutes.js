@@ -124,8 +124,36 @@ router.post("/",  authenticateToken,  validation.validateHeader, validation.vali
  *         description: Проблемы с валидацией
  */
 router.patch("/:id", authenticateToken, validation.validateBody, todosControllers.editTaskTitle)
-
-router.patch("/:id/isCompleted",authenticateToken, validation.validateHeader, todosControllers.editTaskCompletness)
+/**
+ * @swagger
+ * /api/todos/{id}/isCompleted:
+ *   patch:
+ *     summary: Изменить статус таски
+ *     description: Обновляет часть данных таски по его ID.
+ *     tags:
+ *        - Todos
+ *     security:
+ *        - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Идентификатор таски.
+ *     responses:
+ *       200:
+ *         description: Данные таски успешно обновлены.
+ *       404:
+ *         description: Таска не найдена
+ *       401:
+ *         description: Пользователь не авторизован
+ *       403:
+ *         description: Истек срок токена или неправильный токен
+ *       400:
+ *         description: Проблемы с валидацией
+ */
+router.patch("/:id/isCompleted",authenticateToken, todosControllers.editTaskCompletness)
 
 /**
  * @swagger

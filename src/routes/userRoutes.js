@@ -14,15 +14,17 @@ const userControllers = require("../controllers/userControllers")
  *      tags:
  *        - Users
  *      requestBody:
- *        $ref: "#/components/requestBodies/Users"
+ *        $ref: "#/components/requestBodies/UsersLogin"
  *      responses:
  *        200:
  *          description: Bearer token
  *        400:
  *          description: Validation issues
+ *        401:
+ *          description: Неверный логин или
  * components:
  *   requestBodies:
- *     Users:
+ *     UsersLogin:
  *       description: Модель пользователя
  *       required: true
  *       content:
@@ -50,12 +52,14 @@ router.post("/login", validation.validateHeader, validation.validateLoginBody, u
  *      tags:
  *        - Users
  *      requestBody:
- *        $ref: "#/components/requestBodies/Users"
+ *          $ref: "#/components/requestBodies/Users"
  *      responses:
  *        200:
  *          description: Пользователь зарегистрирован
  *        400:
  *          description: Validation issues
+ *        401:
+ *          description: Неверный логин или пароль
  * components:
  *   requestBodies:
  *     Users:
