@@ -1,10 +1,14 @@
-const Sentry = require('@sentry/node');
+const Sentry = require("@sentry/node");
+const { nodeProfilingIntegration } = require("@sentry/profiling-node");
 
-// Ensure to call this before requiring any other modules!
 Sentry.init({
-  dsn: 'https://30c596fa7232e1d48716cc738e67feab@o4507277854638080.ingest.de.sentry.io/4507278025949264',
+  dsn: "https://44f995141bb3ba81c812d2f5c793a074@o4507277854638080.ingest.de.sentry.io/4507285411201104",
+  integrations: [
+    nodeProfilingIntegration(),
+  ],
+  // Performance Monitoring
+  tracesSampleRate: 1.0, //  Capture 100% of the transactions
 
-  // Add Performance Monitoring by setting tracesSampleRate
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
+  // Set sampling rate for profiling - this is relative to tracesSampleRate
+  profilesSampleRate: 1.0,
 });

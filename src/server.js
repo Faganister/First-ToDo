@@ -1,4 +1,4 @@
-require('./instrument');
+require('./instrument.js');
 const Sentry = require('@sentry/node');
 
 const express = require("express")
