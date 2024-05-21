@@ -21,5 +21,9 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "supertest": "^7.0.0"
   }
 }
