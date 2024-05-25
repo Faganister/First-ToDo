@@ -2,7 +2,7 @@ const chai = require('chai');
 const supertest = require('supertest');
 const app = require('./app');
 
-const todo = require("./routes/index")
+const todo = require("./routes/todosRoutes")
 
 const expect = chai.expect;
 const request = supertest(app);
